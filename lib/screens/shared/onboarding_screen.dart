@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'onboarding_screen2.dart';
-
+import '../auth/login_screen.dart';
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
@@ -36,7 +36,15 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      // Navigate to login later
+
+                      // Navigate to login
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                               LoginScreen(),
+                        ),
+                      );
                     },
                     child: const Text(
                       'SKIP',
@@ -49,7 +57,7 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ),
 
-              // Your existing illustration
+
               Expanded(
                 flex: 5,
                 child: Image.asset(
@@ -59,7 +67,7 @@ class OnboardingScreen extends StatelessWidget {
                 ),
               ),
 
-              // Description
+
               Expanded(
                 flex: 2,
                 child: Center(

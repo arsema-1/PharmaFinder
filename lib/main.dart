@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/shared/onboarding_screen.dart';
-
+import 'screens/shared/splashscreen.dart';
 void main() {
   runApp(const PharmaFinderApp());
 }
@@ -17,7 +17,7 @@ class PharmaFinderApp extends StatelessWidget {
         fontFamily: 'Roboto',
         useMaterial3: true,
       ),
-      home: const OnboardingScreen(),
+      home: const SplashScreen(),
     );
   }
 }
