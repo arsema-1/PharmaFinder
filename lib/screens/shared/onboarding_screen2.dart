@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmfinderr/screens/auth/login_screen.dart';
 
 class OnboardingSecondScreen extends StatelessWidget {
   const OnboardingSecondScreen({super.key});
@@ -34,7 +35,11 @@ class OnboardingSecondScreen extends StatelessWidget {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      // Navigate to login/home later
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginScreen(),),
+                      );
+
                     },
                     child: const Text(
                       'SKIP',
@@ -87,7 +92,12 @@ class OnboardingSecondScreen extends StatelessWidget {
                   height: 44,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Third onboarding screen will go here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFB9DDB0),

@@ -84,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Image.asset(
-                    'assets/images/pharmafinder_logo.png',
+                    'assets/images/pharmafinder.png',
                     width: 110,
                     height: 110,
                   ),
