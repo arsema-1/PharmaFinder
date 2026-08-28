@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/shared/splashscreen.dart';
-import 'screens/home/home_screen.dart';
+import 'screens/user/user_location.dart';
 import 'services/appwrite_service.dart';
 import 'viewmodels/auth_vm.dart';
 
@@ -67,8 +67,8 @@ class _AuthGateState extends State<AuthGate> {
     }
 
     if (_loggedIn) {
-      return HomeScreen(
-        userName: _authVm.currentUser?.name ?? 'User',
+      return SetLocationScreen(
+
       );
     }
 

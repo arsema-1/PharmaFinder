@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 import 'forgotpassword_screen.dart';
 import '../../viewmodels/auth_vm.dart';
-import '../home/home_screen.dart';
+import '../user/user_location.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -46,8 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (_) => HomeScreen(
-            userName: authVm.currentUser?.name ?? 'User',
+          builder: (_) => SetLocationScreen(
+
           ),
         ),
         (route) => false,
