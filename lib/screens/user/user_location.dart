@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-
+import 'user_shell.dart';
 
 class SetLocationScreen extends StatefulWidget {
   const SetLocationScreen({super.key});
@@ -20,26 +20,20 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
 
   Future<void> _useCurrentLocation() async {
     try {
-      bool serviceEnabled =
-      await Geolocator.isLocationServiceEnabled();
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
       if (!serviceEnabled) {
         if (!mounted) return;
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Please turn on your device location.',
-            ),
-          ),
+          const SnackBar(content: Text('Please turn on your device location.')),
         );
 
         await Geolocator.openLocationSettings();
         return;
       }
 
-      LocationPermission permission =
-      await Geolocator.checkPermission();
+      LocationPermission permission = await Geolocator.checkPermission();
 
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
@@ -48,11 +42,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
           if (!mounted) return;
 
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'Location permission was denied.',
-              ),
-            ),
+            const SnackBar(content: Text('Location permission was denied.')),
           );
 
           return;
@@ -66,7 +56,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
           const SnackBar(
             content: Text(
               'Location permission is permanently denied. '
-                  'Please enable it in Settings.',
+              'Please enable it in Settings.',
             ),
           ),
         );
@@ -75,10 +65,10 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
         return;
       }
 
-      // Get the current location
-      Position position =
-      await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+      Position position = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+        ),
       );
 
       if (!mounted) return;
@@ -87,23 +77,21 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
         SnackBar(
           content: Text(
             'Location found: '
-                '${position.latitude.toStringAsFixed(5)}, '
-                '${position.longitude.toStringAsFixed(5)}',
+            '${position.latitude.toStringAsFixed(5)}, '
+            '${position.longitude.toStringAsFixed(5)}',
           ),
         ),
       );
 
-      print('Latitude: ${position.latitude}');
-      print('Longitude: ${position.longitude}');
+      // ignore: avoid_print
+      debugPrint('Latitude: ${position.latitude}');
+      // ignore: avoid_print
+      debugPrint('Longitude: ${position.longitude}');
     } catch (e) {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Unable to get your location: $e',
-          ),
-        ),
+        SnackBar(content: Text('Unable to get your location: $e')),
       );
     }
   }
@@ -140,10 +128,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
               decoration: const BoxDecoration(
                 color: Color(0xFFF9F9FF),
                 border: Border(
-                  bottom: BorderSide(
-                    color: Color(0xFFE6E6EC),
-                    width: 1,
-                  ),
+                  bottom: BorderSide(color: Color(0xFFE6E6EC), width: 1),
                 ),
               ),
               child: Stack(
@@ -191,9 +176,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                     height: double.infinity,
                     color: const Color(0xFFE8EAE4),
 
-                    child: CustomPaint(
-                      painter: MapPlaceholderPainter(),
-                    ),
+                    child: CustomPaint(painter: MapPlaceholderPainter()),
                   ),
 
                   // Pin in center
@@ -208,16 +191,10 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
               ),
             ),
 
-
             Expanded(
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.fromLTRB(
-                  16,
-                  10,
-                  16,
-                  26,
-                ),
+                padding: const EdgeInsets.fromLTRB(16, 10, 16, 26),
                 decoration: const BoxDecoration(
                   color: Color(0xFFF9F9FF),
                   borderRadius: BorderRadius.only(
@@ -257,8 +234,8 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                     // Description
                     const Text(
                       'Drag the map to pinpoint your exact location in\n'
-                          'Addis Ababa, or search for an\n'
-                          'area.',
+                      'Addis Ababa, or search for an\n'
+                      'area.',
                       style: TextStyle(
                         fontSize: 16,
                         height: 1.45,
@@ -276,9 +253,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(7),
-                        border: Border.all(
-                          color: const Color(0xFFC8D1CE),
-                        ),
+                        border: Border.all(color: const Color(0xFFC8D1CE)),
                       ),
                       child: TextField(
                         controller: _searchController,
@@ -293,15 +268,12 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                             color: Color(0xFF72807D),
                             size: 25,
                           ),
-                          hintText:
-                          'Search area, street, or building...',
+                          hintText: 'Search area, street, or building...',
                           hintStyle: TextStyle(
                             color: Color(0xFF7B8190),
                             fontSize: 16,
                           ),
-                          contentPadding: EdgeInsets.symmetric(
-                            vertical: 11,
-                          ),
+                          contentPadding: EdgeInsets.symmetric(vertical: 11),
                         ),
                       ),
                     ),
@@ -331,9 +303,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                         ),
                         style: OutlinedButton.styleFrom(
                           backgroundColor: const Color(0xFFF2F5FF),
-                          side: const BorderSide(
-                            color: Color(0xFFC8D7E8),
-                          ),
+                          side: const BorderSide(color: Color(0xFFC8D7E8)),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7),
                           ),
@@ -352,9 +322,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(7),
-                        border: Border.all(
-                          color: const Color(0xFFC8D1CE),
-                        ),
+                        border: Border.all(color: const Color(0xFFC8D1CE)),
                         boxShadow: const [
                           BoxShadow(
                             color: Color(0x12000000),
@@ -364,8 +332,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                         ],
                       ),
                       child: Row(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Info icon
                           Container(
@@ -387,8 +354,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                           // Text
                           const Expanded(
                             child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Select location on map',
@@ -403,7 +369,7 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
 
                                 Text(
                                   'Move the map until the pin is exactly over your\n'
-                                      'location. This ensures accurate routing.',
+                                  'location. This ensures accurate routing.',
                                   style: TextStyle(
                                     color: Color(0xFF68716F),
                                     fontSize: 12,
@@ -426,10 +392,17 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
                       width: double.infinity,
                       height: 45,
                       child: ElevatedButton(
-                        onPressed: _finish,
+                        onPressed: () {
+                          _finish();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UserShell(),
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                          const Color(0xFF007A59),
+                          backgroundColor: const Color(0xFF007A59),
                           foregroundColor: Colors.white,
                           elevation: 2,
                           shape: RoundedRectangleBorder(
@@ -465,9 +438,10 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
 class MapPlaceholderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3;
+    final paint =
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 3;
 
     // Roads
     paint.color = const Color(0xFFD1D3CE);
@@ -491,9 +465,10 @@ class MapPlaceholderPainter extends CustomPainter {
     );
 
     // Green areas
-    final greenPaint = Paint()
-      ..color = const Color(0xFFDDE9D8)
-      ..style = PaintingStyle.fill;
+    final greenPaint =
+        Paint()
+          ..color = const Color(0xFFDDE9D8)
+          ..style = PaintingStyle.fill;
 
     canvas.drawRect(
       Rect.fromLTWH(
@@ -516,10 +491,11 @@ class MapPlaceholderPainter extends CustomPainter {
     );
 
     // Main road
-    final mainRoad = Paint()
-      ..color = const Color(0xFFA8D1A9)
-      ..strokeWidth = 10
-      ..style = PaintingStyle.stroke;
+    final mainRoad =
+        Paint()
+          ..color = const Color(0xFFA8D1A9)
+          ..strokeWidth = 10
+          ..style = PaintingStyle.stroke;
 
     canvas.drawLine(
       Offset(0, size.height * 0.18),
