@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'user_shell.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,42 +8,54 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool showPharmacies = true;
+  // false = Medicines
+  // true = Pharmacies
+  bool showPharmacies = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FC),
+
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          padding: const EdgeInsets.fromLTRB(9, 8, 9, 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              // ============================================================
               // LOCATION HEADER
+              // ============================================================
+
               Row(
                 children: [
+
                   const Icon(
-                    Icons.location_on,
+                    Icons.location_on_outlined,
                     color: Color(0xFF00845A),
                     size: 18,
                   ),
-                  const SizedBox(width: 5),
+
+                  const SizedBox(width: 4),
+
                   const Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+
                         Text(
-                          'Delivering to',
+                          'Current Location',
                           style: TextStyle(
                             fontSize: 8,
                             color: Color(0xFF6B7472),
                           ),
                         ),
+
                         Text(
-                          'Bole, Addis Ababa  ˅',
+                          'Bole, Addis Ababa',
                           style: TextStyle(
-                            fontSize: 10,
+                            fontSize: 9,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF202838),
                           ),
@@ -52,52 +63,59 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  Stack(
-                    children: [
-                      const Icon(
-                        Icons.shopping_cart_outlined,
-                        size: 21,
-                        color: Color(0xFF394440),
-                      ),
-                      Positioned(
-                        right: 0,
-                        top: 0,
-                        child: Container(
-                          width: 6,
-                          height: 6,
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                    ],
+
+                  const Text(
+                    'PharmaFinder',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF007A59),
+                    ),
+                  ),
+
+                  const SizedBox(width: 15),
+
+                  const Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 20,
+                    color: Color(0xFF394440),
                   ),
                 ],
               ),
 
-              const SizedBox(height: 16),
+              const SizedBox(height: 13),
 
-              // SEARCH
+              // ============================================================
+              // SEARCH BAR
+              // ============================================================
+
               Row(
                 children: [
+
                   Expanded(
                     child: Container(
                       height: 36,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: const Color(0xFFD1D8D6)),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: const Color(0xFFD1D8D6),
+                        ),
                       ),
+
                       child: const Row(
                         children: [
+
                           SizedBox(width: 10),
+
                           Icon(
                             Icons.search,
                             size: 17,
                             color: Color(0xFF68736F),
                           ),
+
                           SizedBox(width: 7),
+
                           Expanded(
                             child: Text(
                               'Search medicines, pharmacies...',
@@ -111,18 +129,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
+
+                  const SizedBox(width: 7),
+
                   Container(
                     height: 36,
                     width: 36,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF3F5FF),
-                      borderRadius: BorderRadius.circular(7),
+                      color: const Color(0xFF007A59),
+                      borderRadius: BorderRadius.circular(18),
                     ),
+
                     child: const Icon(
                       Icons.tune,
-                      color: Color(0xFF00845A),
-                      size: 19,
+                      color: Colors.white,
+                      size: 18,
                     ),
                   ),
                 ],
@@ -130,30 +151,44 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 10),
 
-              // TOGGLE
+              // ============================================================
+              // MEDICINES / PHARMACIES SWITCH
+              // ============================================================
+
               Center(
                 child: Container(
                   height: 25,
-                  width: 160,
+                  width: 153,
                   padding: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE2E7FA),
                     borderRadius: BorderRadius.circular(15),
                   ),
+
                   child: Row(
                     children: [
+
                       Expanded(
                         child: _toggleButton(
                           'Medicines',
                           !showPharmacies,
-                          () => setState(() => showPharmacies = false),
+                              () {
+                            setState(() {
+                              showPharmacies = false;
+                            });
+                          },
                         ),
                       ),
+
                       Expanded(
                         child: _toggleButton(
                           'Pharmacies',
                           showPharmacies,
-                          () => setState(() => showPharmacies = true),
+                              () {
+                            setState(() {
+                              showPharmacies = true;
+                            });
+                          },
                         ),
                       ),
                     ],
@@ -163,23 +198,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 18),
 
+              // ============================================================
               // HEADER
+              // ============================================================
+
               Row(
                 children: [
-                  const Expanded(
+
+                  Expanded(
                     child: Text(
-                      'Available Near You',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
+                      showPharmacies
+                          ? 'Pharmacies Near You'
+                          : 'Available Near You',
+
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
                         color: Color(0xFF202838),
                       ),
                     ),
                   ),
+
                   GestureDetector(
                     onTap: () {},
                     child: const Text(
-                      'View Map',
+                      'View All',
                       style: TextStyle(
                         fontSize: 9,
                         fontWeight: FontWeight.w600,
@@ -190,48 +233,77 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
 
+              const SizedBox(height: 2),
+
+              Text(
+                showPharmacies
+                    ? 'Pharmacies available within 2km'
+                    : 'In stock at pharmacies within 2km',
+
+                style: const TextStyle(
+                  fontSize: 9,
+                  color: Color(0xFF59625F),
+                ),
+              ),
+
               const SizedBox(height: 9),
 
+              // ============================================================
               // CONTENT
-              if (showPharmacies) ...[
+              // ============================================================
+
+              if (!showPharmacies) ...[
+                _medicineCard(
+                  image: 'assets/images/paracetamol.jpg',
+                  name: 'Paracetamol 500mg',
+                  type: 'Tablets • 10 per pack',
+                  stock: 'In stock',
+                  price: '35 ETB',
+                  distance: '0.8 km',
+                  updated: '20m ago',
+                ),
+
+                const SizedBox(height: 5),
+
+                _medicineCard(
+                  image: 'assets/images/ibuprofen.jpg',
+                  name: 'Ibuprofen Syrup',
+                  type: 'Liquid • 100ml',
+                  stock: 'In stock',
+                  price: '85 ETB',
+                  distance: '1.2 km',
+                  updated: '1h ago',
+                ),
+
+                const SizedBox(height: 9),
+
+
+
+
+                _browseCategories(),
+              ]
+
+              else ...[
                 _pharmacyCard(
+                  image: 'assets/images/pharmacy1.jpg',
                   name: 'ABC Pharmacy',
                   rating: '4.8',
-                  distance: '0.8 km away',
+                  distance: '0.8 km',
                   status: 'Open Now',
-                  statusColor: const Color(0xFF00845A),
                 ),
+
                 const SizedBox(height: 9),
+
                 _pharmacyCard(
+                  image: 'assets/images/pharmacy1.jpg',
                   name: 'HealthFirst Pharmacy',
                   rating: '4.5',
-                  distance: '1.2 km away',
-                  status: 'Closes at 10:00 PM',
-                  statusColor: const Color(0xFF555F5C),
+                  distance: '1.2 km',
+                  status: 'Open Now',
                 ),
+
                 const SizedBox(height: 9),
-                _pharmacyCard(
-                  name: 'LifeCare Pharmacy',
-                  rating: '4.9',
-                  distance: '2.5 km away',
-                  status: '24 Hours',
-                  statusColor: const Color(0xFF00845A),
-                ),
-              ] else ...[
-                Container(
-                  width: double.infinity,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Medicine view',
-                      style: TextStyle(color: Color(0xFF00845A)),
-                    ),
-                  ),
-                ),
+
               ],
             ],
           ),
@@ -240,36 +312,62 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _toggleButton(String label, bool selected, VoidCallback onTap) {
+  // ============================================================
+  // TOGGLE BUTTON
+  // ============================================================
+
+  Widget _toggleButton(
+      String label,
+      bool selected,
+      VoidCallback onTap,
+      ) {
     return GestureDetector(
       onTap: onTap,
+
       child: Container(
         height: double.infinity,
         alignment: Alignment.center,
+
         decoration: BoxDecoration(
-          color: selected ? const Color(0xFF00A875) : Colors.transparent,
+          color: selected
+              ? const Color(0xFF00A875)
+              : Colors.transparent,
+
           borderRadius: BorderRadius.circular(13),
         ),
+
         child: Text(
           label,
           style: TextStyle(
             fontSize: 9,
             fontWeight: FontWeight.w600,
-            color: selected ? Colors.white : const Color(0xFF24303B),
+            color: selected
+                ? Colors.white
+                : const Color(0xFF24303B),
           ),
         ),
       ),
     );
   }
 
-  Widget _pharmacyCard({
+  // ============================================================
+  // MEDICINE CARD
+  // ============================================================
+
+  Widget _medicineCard({
+    required String image,
     required String name,
-    required String rating,
+    required String type,
+    required String stock,
+    required String price,
     required String distance,
-    required String status,
-    required Color statusColor,
+    required String updated,
+    bool lowStock = false,
   }) {
     return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(9),
+
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -281,128 +379,400 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // IMAGE PLACEHOLDER
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
-            child: Container(
-              height: 115,
-              color: const Color(0xFFE8ECFA),
-              child: const Center(
-                child: Icon(
-                  Icons.local_pharmacy_outlined,
-                  size: 45,
-                  color: Color(0xFF9BAEDB),
+
+          // IMAGE + FAVORITE
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.asset(
+                  image,
+                  width: 55,
+                  height: 55,
+                  fit: BoxFit.cover,
                 ),
               ),
+
+              const Spacer(),
+
+              const Icon(
+                Icons.favorite_border,
+                size: 18,
+                color: Color(0xFF66716D),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 5),
+
+          Text(
+            name,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF202838),
             ),
           ),
 
-          // INFO
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 8, 10, 9),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          const SizedBox(height: 2),
+
+          Text(
+            type,
+            style: const TextStyle(
+              fontSize: 8,
+              color: Color(0xFF69726F),
+            ),
+          ),
+
+          const SizedBox(height: 5),
+
+          // STOCK
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 5,
+              vertical: 2,
+            ),
+            decoration: BoxDecoration(
+              color: lowStock
+                  ? const Color(0xFFE7EBF5)
+                  : const Color(0xFFD9F6EA),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
+                Icon(
+                  lowStock
+                      ? Icons.warning_amber_rounded
+                      : Icons.check_circle_outline,
+                  size: 8,
+                  color: lowStock
+                      ? const Color(0xFF59616A)
+                      : const Color(0xFF00845A),
+                ),
+
+                const SizedBox(width: 2),
+
+                Text(
+                  stock,
+                  style: TextStyle(
+                    fontSize: 7,
+                    color: lowStock
+                        ? const Color(0xFF59616A)
+                        : const Color(0xFF00845A),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 7),
+
+          const Divider(
+            height: 1,
+            color: Color(0xFFE5E8E7),
+          ),
+
+          const SizedBox(height: 6),
+
+          // PRICE + ADD
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      price,
                       style: const TextStyle(
-                        fontSize: 12,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF202838),
                       ),
                     ),
-                    const SizedBox(width: 4),
-                    const Icon(
-                      Icons.verified,
-                      size: 13,
-                      color: Color(0xFF00845A),
+
+                    const SizedBox(height: 1),
+
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on_outlined,
+                          size: 8,
+                          color: Color(0xFF68736F),
+                        ),
+
+                        const SizedBox(width: 2),
+
+                        Text(
+                          '$distance • Updated $updated',
+                          style: const TextStyle(
+                            fontSize: 7,
+                            color: Color(0xFF68736F),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                const SizedBox(height: 6),
+              ),
+
+              Container(
+                width: 20,
+                height: 20,
+                decoration: const BoxDecoration(
+                  color: Color(0xFF00845A),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.add,
+                  size: 14,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============================================================
+  // PHARMACY CARD
+  // ============================================================
+
+  Widget _pharmacyCard({
+    required String image,
+    required String name,
+    required String rating,
+    required String distance,
+    required String status,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(8),
+
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 5,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          // ============================================================
+          // PHARMACY IMAGE
+          // ============================================================
+
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+
+            child: Image.asset(
+              image,
+              width: 62,
+              height: 62,
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          const SizedBox(width: 8),
+
+          // ============================================================
+          // PHARMACY INFORMATION
+          // ============================================================
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                // NAME + HEART
                 Row(
                   children: [
-                    const Icon(
-                      Icons.location_on_outlined,
-                      size: 11,
-                      color: Color(0xFF53605C),
+
+                    Expanded(
+                      child: Text(
+                        name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF202838),
+                        ),
+                      ),
                     ),
-                    const SizedBox(width: 3),
+
+                    const SizedBox(width: 4),
+
+                    const Icon(
+                      Icons.favorite_border,
+                      size: 17,
+                      color: Color(0xFF66716D),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 4),
+
+                // RATING + DISTANCE
+                Row(
+                  children: [
+
+                    const Icon(
+                      Icons.star,
+                      size: 10,
+                      color: Color(0xFFFFB400),
+                    ),
+
+                    const SizedBox(width: 2),
+
                     Text(
-                      distance,
+                      rating,
                       style: const TextStyle(
                         fontSize: 8,
                         color: Color(0xFF53605C),
                       ),
                     ),
-                    const SizedBox(width: 9),
-                    Container(
-                      width: 1,
-                      height: 12,
-                      color: const Color(0xFFD8DDDB),
+
+                    const SizedBox(width: 6),
+
+                    const Icon(
+                      Icons.location_on_outlined,
+                      size: 10,
+                      color: Color(0xFF53605C),
                     ),
-                    const SizedBox(width: 9),
-                    Icon(Icons.access_time, size: 11, color: statusColor),
-                    const SizedBox(width: 3),
-                    Text(
-                      status,
-                      style: TextStyle(
-                        fontSize: 8,
-                        color: statusColor,
-                        fontWeight: FontWeight.w500,
+
+                    const SizedBox(width: 2),
+
+                    Flexible(
+                      child: Text(
+                        distance,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontSize: 8,
+                          color: Color(0xFF53605C),
+                        ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
-                const Divider(height: 1, color: Color(0xFFE5E8E7)),
-                const SizedBox(height: 9),
+
+                const SizedBox(height: 3),
+
+                // STATUS
+                Text(
+                  status,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 8,
+                    color: Color(0xFF00845A),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+
+                const SizedBox(height: 5),
+
+                // ========================================================
+                // BUTTONS
+                // ========================================================
+
                 Row(
                   children: [
+
                     Expanded(
                       child: SizedBox(
-                        height: 27,
+                        height: 24,
+
                         child: OutlinedButton.icon(
                           onPressed: () {},
-                          icon: const Icon(Icons.phone_outlined, size: 12),
+
+                          icon: const Icon(
+                            Icons.phone_outlined,
+                            size: 10,
+                          ),
+
                           label: const Text(
                             'Call',
-                            style: TextStyle(fontSize: 9),
+                            style: TextStyle(
+                              fontSize: 8,
+                            ),
                           ),
+
                           style: OutlinedButton.styleFrom(
                             foregroundColor: const Color(0xFF00845A),
-                            side: const BorderSide(color: Color(0xFF00845A)),
+
+                            side: const BorderSide(
+                              color: Color(0xFF00845A),
+                            ),
+
+                            padding: EdgeInsets.zero,
+
+                            minimumSize: Size.zero,
+
+                            tapTargetSize:
+                            MaterialTapTargetSize.shrinkWrap,
+
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            padding: EdgeInsets.zero,
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: 7),
+
+                    const SizedBox(width: 5),
+
                     Expanded(
                       child: SizedBox(
-                        height: 27,
+                        height: 24,
+
                         child: ElevatedButton.icon(
                           onPressed: () {},
-                          icon: const Icon(Icons.directions_outlined, size: 12),
+
+                          icon: const Icon(
+                            Icons.directions_outlined,
+                            size: 10,
+                          ),
+
                           label: const Text(
                             'Directions',
-                            style: TextStyle(fontSize: 9),
+                            style: TextStyle(
+                              fontSize: 8,
+                            ),
                           ),
+
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF007A59),
+                            backgroundColor:
+                            const Color(0xFF007A59),
+
                             foregroundColor: Colors.white,
+
                             elevation: 0,
+
+                            padding: EdgeInsets.zero,
+
+                            minimumSize: Size.zero,
+
+                            tapTargetSize:
+                            MaterialTapTargetSize.shrinkWrap,
+
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            padding: EdgeInsets.zero,
                           ),
                         ),
                       ),
@@ -410,6 +780,115 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ============================================================
+  // BROWSE CATEGORIES
+  // ============================================================
+
+  Widget _browseCategories() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+
+        const Text(
+          'Browse Categories',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF202838),
+          ),
+        ),
+
+        const SizedBox(height: 9),
+
+        SizedBox(
+          height: 67,
+
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+
+            children: [
+
+              _category(
+                Icons.medical_services_outlined,
+                'Pain Relief',
+              ),
+
+              _category(
+                Icons.air,
+                'Cold & Flu',
+              ),
+
+              _category(
+                Icons.local_pharmacy_outlined,
+                'Vitamins',
+              ),
+
+              _category(
+                Icons.favorite_border,
+                'Heart',
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _category(
+      IconData icon,
+      String title,
+      ) {
+    return Container(
+      width: 73,
+      margin: const EdgeInsets.only(right: 8),
+
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 5,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+
+          Container(
+            width: 19,
+            height: 19,
+
+            decoration: const BoxDecoration(
+              color: Color(0xFFD9F6EA),
+              shape: BoxShape.circle,
+            ),
+
+            child: Icon(
+              icon,
+              size: 15,
+              color: Color(0xFF00845A),
+            ),
+          ),
+
+          const SizedBox(height: 5),
+
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 7,
+              color: Color(0xFF36413D),
             ),
           ),
         ],

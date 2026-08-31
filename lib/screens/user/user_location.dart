@@ -170,16 +170,13 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
               width: double.infinity,
               child: Stack(
                 children: [
-                  // Replace this Container with your actual map widget
-                  Container(
+                  Image.asset(
+                    'assets/images/city_map.jpg',
                     width: double.infinity,
                     height: double.infinity,
-                    color: const Color(0xFFE8EAE4),
-
-                    child: CustomPaint(painter: MapPlaceholderPainter()),
+                    fit: BoxFit.cover,
                   ),
 
-                  // Pin in center
                   const Center(
                     child: Icon(
                       Icons.location_pin,
@@ -313,81 +310,9 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
 
                     const SizedBox(height: 16),
 
-                    // ------------------------------------------------
-                    // INFORMATION CARD
-                    // ------------------------------------------------
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(7),
-                        border: Border.all(color: const Color(0xFFC8D1CE)),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color(0x12000000),
-                            blurRadius: 7,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Info icon
-                          Container(
-                            width: 20,
-                            height: 20,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFF007A72),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(
-                              Icons.info_outline,
-                              color: Colors.white,
-                              size: 14,
-                            ),
-                          ),
 
-                          const SizedBox(width: 10),
 
-                          // Text
-                          const Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Select location on map',
-                                  style: TextStyle(
-                                    color: Color(0xFF202939),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
 
-                                SizedBox(height: 4),
-
-                                Text(
-                                  'Move the map until the pin is exactly over your\n'
-                                  'location. This ensures accurate routing.',
-                                  style: TextStyle(
-                                    color: Color(0xFF68716F),
-                                    fontSize: 12,
-                                    height: 1.35,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const Spacer(),
-
-                    // ------------------------------------------------
-                    // FINISH BUTTON
-                    // ------------------------------------------------
                     SizedBox(
                       width: double.infinity,
                       height: 45,
@@ -429,83 +354,3 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
   }
 }
 
-// ============================================================
-// SIMPLE MAP PLACEHOLDER
-// ============================================================
-// Replace this with Google Maps, OpenStreetMap, etc.
-// when you connect the actual map functionality.
-
-class MapPlaceholderPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint =
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 3;
-
-    // Roads
-    paint.color = const Color(0xFFD1D3CE);
-
-    canvas.drawLine(
-      Offset(0, size.height * 0.45),
-      Offset(size.width, size.height * 0.65),
-      paint,
-    );
-
-    canvas.drawLine(
-      Offset(size.width * 0.2, 0),
-      Offset(size.width * 0.65, size.height),
-      paint,
-    );
-
-    canvas.drawLine(
-      Offset(size.width * 0.75, 0),
-      Offset(size.width * 0.4, size.height),
-      paint,
-    );
-
-    // Green areas
-    final greenPaint =
-        Paint()
-          ..color = const Color(0xFFDDE9D8)
-          ..style = PaintingStyle.fill;
-
-    canvas.drawRect(
-      Rect.fromLTWH(
-        size.width * 0.05,
-        size.height * 0.1,
-        size.width * 0.4,
-        size.height * 0.3,
-      ),
-      greenPaint,
-    );
-
-    canvas.drawRect(
-      Rect.fromLTWH(
-        size.width * 0.6,
-        size.height * 0.55,
-        size.width * 0.35,
-        size.height * 0.35,
-      ),
-      greenPaint,
-    );
-
-    // Main road
-    final mainRoad =
-        Paint()
-          ..color = const Color(0xFFA8D1A9)
-          ..strokeWidth = 10
-          ..style = PaintingStyle.stroke;
-
-    canvas.drawLine(
-      Offset(0, size.height * 0.18),
-      Offset(size.width, size.height * 0.3),
-      mainRoad,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-}
