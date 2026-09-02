@@ -3,6 +3,7 @@ import 'screens/shared/splashscreen.dart';
 import 'screens/user/user_location.dart';
 import 'services/appwrite_service.dart';
 import 'viewmodels/auth_vm.dart';
+import 'screens/user/medicine_detail_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

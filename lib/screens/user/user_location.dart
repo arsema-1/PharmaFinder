@@ -119,9 +119,9 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // ------------------------------------------------
+
             // TOP BAR
-            // ------------------------------------------------
+
             Container(
               height: 58,
               width: double.infinity,

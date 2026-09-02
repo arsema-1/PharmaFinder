@@ -2,28 +2,7 @@ import 'package:flutter/material.dart';
 import 'user_homescreen.dart';
 import 'user_browse.dart';
 import 'user_profile.dart';
-
-// ============================================================
-// PLACEHOLDER SCREENS
-// ============================================================
-
-
-
-class _SavedScreen extends StatelessWidget {
-  const _SavedScreen();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Saved'),
-      ),
-    );
-  }
-}
-
-
-
+import 'user_saved_screen.dart';
 
 
 // ============================================================
@@ -47,7 +26,7 @@ class _UserShellState extends State<UserShell> {
   final List<Widget> _screens = const [
     HomeScreen(),
     BrowseScreen(),
-    _SavedScreen(),
+    SavedScreen(),
     ProfileScreen(),
 
   ];

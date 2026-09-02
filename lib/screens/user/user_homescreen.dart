@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:pharmfinderr/screens/user/pharmacy_detail_screen.dart';
+import 'medicine_detail_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -23,14 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               // ============================================================
               // LOCATION HEADER
               // ============================================================
-
               Row(
                 children: [
-
                   const Icon(
                     Icons.location_on_outlined,
                     color: Color(0xFF00845A),
@@ -43,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Text(
                           'Current Location',
                           style: TextStyle(
@@ -88,24 +85,19 @@ class _HomeScreenState extends State<HomeScreen> {
               // ============================================================
               // SEARCH BAR
               // ============================================================
-
               Row(
                 children: [
-
                   Expanded(
                     child: Container(
                       height: 36,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: const Color(0xFFD1D8D6),
-                        ),
+                        border: Border.all(color: const Color(0xFFD1D8D6)),
                       ),
 
                       child: const Row(
                         children: [
-
                           SizedBox(width: 10),
 
                           Icon(
@@ -154,7 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
               // ============================================================
               // MEDICINES / PHARMACIES SWITCH
               // ============================================================
-
               Center(
                 child: Container(
                   height: 25,
@@ -167,29 +158,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   child: Row(
                     children: [
-
                       Expanded(
-                        child: _toggleButton(
-                          'Medicines',
-                          !showPharmacies,
-                              () {
-                            setState(() {
-                              showPharmacies = false;
-                            });
-                          },
-                        ),
+                        child: _toggleButton('Medicines', !showPharmacies, () {
+                          setState(() {
+                            showPharmacies = false;
+                          });
+                        }),
                       ),
 
                       Expanded(
-                        child: _toggleButton(
-                          'Pharmacies',
-                          showPharmacies,
-                              () {
-                            setState(() {
-                              showPharmacies = true;
-                            });
-                          },
-                        ),
+                        child: _toggleButton('Pharmacies', showPharmacies, () {
+                          setState(() {
+                            showPharmacies = true;
+                          });
+                        }),
                       ),
                     ],
                   ),
@@ -201,10 +183,8 @@ class _HomeScreenState extends State<HomeScreen> {
               // ============================================================
               // HEADER
               // ============================================================
-
               Row(
                 children: [
-
                   Expanded(
                     child: Text(
                       showPharmacies
@@ -240,10 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? 'Pharmacies available within 2km'
                     : 'In stock at pharmacies within 2km',
 
-                style: const TextStyle(
-                  fontSize: 9,
-                  color: Color(0xFF59625F),
-                ),
+                style: const TextStyle(fontSize: 9, color: Color(0xFF59625F)),
               ),
 
               const SizedBox(height: 9),
@@ -251,7 +228,6 @@ class _HomeScreenState extends State<HomeScreen> {
               // ============================================================
               // CONTENT
               // ============================================================
-
               if (!showPharmacies) ...[
                 _medicineCard(
                   image: 'assets/images/paracetamol.jpg',
@@ -277,33 +253,65 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 const SizedBox(height: 9),
 
-
-
-
                 _browseCategories(),
-              ]
-
-              else ...[
-                _pharmacyCard(
-                  image: 'assets/images/pharmacy1.jpg',
-                  name: 'ABC Pharmacy',
-                  rating: '4.8',
-                  distance: '0.8 km',
-                  status: 'Open Now',
+              ] else ...[
+                GestureDetector(
+                  onTap:
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (_) => const PharmacyDetailScreen(
+                                name: 'ABC Pharmacy',
+                                image: 'assets/images/pharmacy1.jpg',
+                                rating: '4.8',
+                                reviewCount: '124',
+                                address: 'Bole Road, Addis Ababa',
+                                distance: '0.8 km',
+                                status: 'Open now',
+                                closingTime: '10:00 PM',
+                              ),
+                        ),
+                      ),
+                  child: _pharmacyCard(
+                    image: 'assets/images/pharmacy1.jpg',
+                    name: 'ABC Pharmacy',
+                    rating: '4.8',
+                    distance: '0.8 km',
+                    status: 'Open Now',
+                  ),
                 ),
 
                 const SizedBox(height: 9),
 
-                _pharmacyCard(
-                  image: 'assets/images/pharmacy1.jpg',
-                  name: 'HealthFirst Pharmacy',
-                  rating: '4.5',
-                  distance: '1.2 km',
-                  status: 'Open Now',
+                GestureDetector(
+                  onTap:
+                      () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (_) => const PharmacyDetailScreen(
+                                name: 'HealthFirst Pharmacy',
+                                image: 'assets/images/pharmacy1.jpg',
+                                rating: '4.5',
+                                reviewCount: '87',
+                                address: 'Mexico Square, Addis Ababa',
+                                distance: '1.2 km',
+                                status: 'Open now',
+                                closingTime: '9:00 PM',
+                              ),
+                        ),
+                      ),
+                  child: _pharmacyCard(
+                    image: 'assets/images/pharmacy1.jpg',
+                    name: 'HealthFirst Pharmacy',
+                    rating: '4.5',
+                    distance: '1.2 km',
+                    status: 'Open Now',
+                  ),
                 ),
 
                 const SizedBox(height: 9),
-
               ],
             ],
           ),
@@ -316,11 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // TOGGLE BUTTON
   // ============================================================
 
-  Widget _toggleButton(
-      String label,
-      bool selected,
-      VoidCallback onTap,
-      ) {
+  Widget _toggleButton(String label, bool selected, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
 
@@ -329,9 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
         alignment: Alignment.center,
 
         decoration: BoxDecoration(
-          color: selected
-              ? const Color(0xFF00A875)
-              : Colors.transparent,
+          color: selected ? const Color(0xFF00A875) : Colors.transparent,
 
           borderRadius: BorderRadius.circular(13),
         ),
@@ -341,9 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(
             fontSize: 9,
             fontWeight: FontWeight.w600,
-            color: selected
-                ? Colors.white
-                : const Color(0xFF24303B),
+            color: selected ? Colors.white : const Color(0xFF24303B),
           ),
         ),
       ),
@@ -364,7 +364,17 @@ class _HomeScreenState extends State<HomeScreen> {
     required String updated,
     bool lowStock = false,
   }) {
-    return Container(
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MedicineDetailsScreen(),
+          ),
+        );
+      },
+
+
+     child: Container(
       width: double.infinity,
       padding: const EdgeInsets.all(9),
 
@@ -383,7 +393,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           // IMAGE + FAVORITE
           Row(
             children: [
@@ -422,24 +431,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
           Text(
             type,
-            style: const TextStyle(
-              fontSize: 8,
-              color: Color(0xFF69726F),
-            ),
+            style: const TextStyle(fontSize: 8, color: Color(0xFF69726F)),
           ),
 
           const SizedBox(height: 5),
 
           // STOCK
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-              vertical: 2,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
             decoration: BoxDecoration(
-              color: lowStock
-                  ? const Color(0xFFE7EBF5)
-                  : const Color(0xFFD9F6EA),
+              color:
+                  lowStock ? const Color(0xFFE7EBF5) : const Color(0xFFD9F6EA),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Row(
@@ -450,9 +452,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? Icons.warning_amber_rounded
                       : Icons.check_circle_outline,
                   size: 8,
-                  color: lowStock
-                      ? const Color(0xFF59616A)
-                      : const Color(0xFF00845A),
+                  color:
+                      lowStock
+                          ? const Color(0xFF59616A)
+                          : const Color(0xFF00845A),
                 ),
 
                 const SizedBox(width: 2),
@@ -461,9 +464,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   stock,
                   style: TextStyle(
                     fontSize: 7,
-                    color: lowStock
-                        ? const Color(0xFF59616A)
-                        : const Color(0xFF00845A),
+                    color:
+                        lowStock
+                            ? const Color(0xFF59616A)
+                            : const Color(0xFF00845A),
                   ),
                 ),
               ],
@@ -472,10 +476,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: 7),
 
-          const Divider(
-            height: 1,
-            color: Color(0xFFE5E8E7),
-          ),
+          const Divider(height: 1, color: Color(0xFFE5E8E7)),
 
           const SizedBox(height: 6),
 
@@ -527,17 +528,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Color(0xFF00845A),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.add,
-                  size: 14,
-                  color: Colors.white,
-                ),
+                child: const Icon(Icons.add, size: 14, color: Colors.white),
               ),
             ],
           ),
         ],
       ),
+    ),
     );
+
   }
 
   // ============================================================
@@ -551,7 +550,10 @@ class _HomeScreenState extends State<HomeScreen> {
     required String distance,
     required String status,
   }) {
+
     return Container(
+
+
       width: double.infinity,
       padding: const EdgeInsets.all(8),
 
@@ -570,20 +572,13 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           // ============================================================
           // PHARMACY IMAGE
           // ============================================================
-
           ClipRRect(
             borderRadius: BorderRadius.circular(6),
 
-            child: Image.asset(
-              image,
-              width: 62,
-              height: 62,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(image, width: 62, height: 62, fit: BoxFit.cover),
           ),
 
           const SizedBox(width: 8),
@@ -591,16 +586,13 @@ class _HomeScreenState extends State<HomeScreen> {
           // ============================================================
           // PHARMACY INFORMATION
           // ============================================================
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 // NAME + HEART
                 Row(
                   children: [
-
                     Expanded(
                       child: Text(
                         name,
@@ -630,12 +622,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // RATING + DISTANCE
                 Row(
                   children: [
-
-                    const Icon(
-                      Icons.star,
-                      size: 10,
-                      color: Color(0xFFFFB400),
-                    ),
+                    const Icon(Icons.star, size: 10, color: Color(0xFFFFB400)),
 
                     const SizedBox(width: 2),
 
@@ -689,10 +676,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 // ========================================================
                 // BUTTONS
                 // ========================================================
-
                 Row(
                   children: [
-
                     Expanded(
                       child: SizedBox(
                         height: 24,
@@ -700,31 +685,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: OutlinedButton.icon(
                           onPressed: () {},
 
-                          icon: const Icon(
-                            Icons.phone_outlined,
-                            size: 10,
-                          ),
+                          icon: const Icon(Icons.phone_outlined, size: 10),
 
                           label: const Text(
                             'Call',
-                            style: TextStyle(
-                              fontSize: 8,
-                            ),
+                            style: TextStyle(fontSize: 8),
                           ),
 
                           style: OutlinedButton.styleFrom(
                             foregroundColor: const Color(0xFF00845A),
 
-                            side: const BorderSide(
-                              color: Color(0xFF00845A),
-                            ),
+                            side: const BorderSide(color: Color(0xFF00845A)),
 
                             padding: EdgeInsets.zero,
 
                             minimumSize: Size.zero,
 
-                            tapTargetSize:
-                            MaterialTapTargetSize.shrinkWrap,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
 
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
@@ -743,21 +720,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ElevatedButton.icon(
                           onPressed: () {},
 
-                          icon: const Icon(
-                            Icons.directions_outlined,
-                            size: 10,
-                          ),
+                          icon: const Icon(Icons.directions_outlined, size: 10),
 
                           label: const Text(
                             'Directions',
-                            style: TextStyle(
-                              fontSize: 8,
-                            ),
+                            style: TextStyle(fontSize: 8),
                           ),
 
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                            const Color(0xFF007A59),
+                            backgroundColor: const Color(0xFF007A59),
 
                             foregroundColor: Colors.white,
 
@@ -767,8 +738,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                             minimumSize: Size.zero,
 
-                            tapTargetSize:
-                            MaterialTapTargetSize.shrinkWrap,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
 
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5),
@@ -795,7 +765,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         const Text(
           'Browse Categories',
           style: TextStyle(
@@ -814,26 +783,13 @@ class _HomeScreenState extends State<HomeScreen> {
             scrollDirection: Axis.horizontal,
 
             children: [
+              _category(Icons.medical_services_outlined, 'Pain Relief'),
 
-              _category(
-                Icons.medical_services_outlined,
-                'Pain Relief',
-              ),
+              _category(Icons.air, 'Cold & Flu'),
 
-              _category(
-                Icons.air,
-                'Cold & Flu',
-              ),
+              _category(Icons.local_pharmacy_outlined, 'Vitamins'),
 
-              _category(
-                Icons.local_pharmacy_outlined,
-                'Vitamins',
-              ),
-
-              _category(
-                Icons.favorite_border,
-                'Heart',
-              ),
+              _category(Icons.favorite_border, 'Heart'),
             ],
           ),
         ),
@@ -841,10 +797,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _category(
-      IconData icon,
-      String title,
-      ) {
+  Widget _category(IconData icon, String title) {
     return Container(
       width: 73,
       margin: const EdgeInsets.only(right: 8),
@@ -865,7 +818,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           Container(
             width: 19,
             height: 19,
@@ -875,21 +827,14 @@ class _HomeScreenState extends State<HomeScreen> {
               shape: BoxShape.circle,
             ),
 
-            child: Icon(
-              icon,
-              size: 15,
-              color: Color(0xFF00845A),
-            ),
+            child: Icon(icon, size: 15, color: Color(0xFF00845A)),
           ),
 
           const SizedBox(height: 5),
 
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 7,
-              color: Color(0xFF36413D),
-            ),
+            style: const TextStyle(fontSize: 7, color: Color(0xFF36413D)),
           ),
         ],
       ),
