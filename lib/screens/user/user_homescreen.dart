@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmfinderr/screens/user/pharmacy_detail_screen.dart';
 import 'medicine_detail_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -192,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           : 'Available Near You',
 
                       style: const TextStyle(
-                        fontSize: 15,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF202838),
                       ),
@@ -204,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Text(
                       'View All',
                       style: TextStyle(
-                        fontSize: 9,
+                        fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: Color(0xFF00845A),
                       ),
@@ -220,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? 'Pharmacies available within 2km'
                     : 'In stock at pharmacies within 2km',
 
-                style: const TextStyle(fontSize: 9, color: Color(0xFF59625F)),
+                style: const TextStyle(fontSize: 12, color: Color(0xFF59625F)),
               ),
 
               const SizedBox(height: 9),
@@ -365,178 +366,179 @@ class _HomeScreenState extends State<HomeScreen> {
     bool lowStock = false,
   }) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const MedicineDetailsScreen(),
+          MaterialPageRoute(
+            builder: (context) => const MedicineDetailsScreen(),
           ),
         );
       },
 
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(14),
 
-     child: Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(9),
-
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 5,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // IMAGE + FAVORITE
-          Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Image.asset(
-                  image,
-                  width: 55,
-                  height: 55,
-                  fit: BoxFit.cover,
-                ),
-              ),
-
-              const Spacer(),
-
-              const Icon(
-                Icons.favorite_border,
-                size: 18,
-                color: Color(0xFF66716D),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 5),
-
-          Text(
-            name,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF202838),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
             ),
-          ),
+          ],
+        ),
 
-          const SizedBox(height: 2),
-
-          Text(
-            type,
-            style: const TextStyle(fontSize: 8, color: Color(0xFF69726F)),
-          ),
-
-          const SizedBox(height: 5),
-
-          // STOCK
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-            decoration: BoxDecoration(
-              color:
-                  lowStock ? const Color(0xFFE7EBF5) : const Color(0xFFD9F6EA),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // IMAGE + FAVORITE
+            Row(
               children: [
-                Icon(
-                  lowStock
-                      ? Icons.warning_amber_rounded
-                      : Icons.check_circle_outline,
-                  size: 8,
-                  color:
-                      lowStock
-                          ? const Color(0xFF59616A)
-                          : const Color(0xFF00845A),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    image,
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
+                  ),
                 ),
 
-                const SizedBox(width: 2),
+                const Spacer(),
 
-                Text(
-                  stock,
-                  style: TextStyle(
-                    fontSize: 7,
+                const Icon(
+                  Icons.favorite_border,
+                  size: 22,
+                  color: Color(0xFF66716D),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 10),
+
+            Text(
+              name,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF202838),
+              ),
+            ),
+
+            const SizedBox(height: 3),
+
+            Text(
+              type,
+              style: const TextStyle(fontSize: 12, color: Color(0xFF69726F)),
+            ),
+
+            const SizedBox(height: 8),
+
+            // STOCK
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color:
+                    lowStock
+                        ? const Color(0xFFE7EBF5)
+                        : const Color(0xFFD9F6EA),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    lowStock
+                        ? Icons.warning_amber_rounded
+                        : Icons.check_circle_outline,
+                    size: 12,
                     color:
                         lowStock
                             ? const Color(0xFF59616A)
                             : const Color(0xFF00845A),
                   ),
+
+                  const SizedBox(width: 4),
+
+                  Text(
+                    stock,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color:
+                          lowStock
+                              ? const Color(0xFF59616A)
+                              : const Color(0xFF00845A),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            const Divider(height: 1, color: Color(0xFFE5E8E7)),
+
+            const SizedBox(height: 10),
+
+            // PRICE + ADD
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        price,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF202838),
+                        ),
+                      ),
+
+                      const SizedBox(height: 2),
+
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on_outlined,
+                            size: 11,
+                            color: Color(0xFF68736F),
+                          ),
+
+                          const SizedBox(width: 3),
+
+                          Text(
+                            '$distance • Updated $updated',
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: Color(0xFF68736F),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF00845A),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.add, size: 20, color: Colors.white),
                 ),
               ],
             ),
-          ),
-
-          const SizedBox(height: 7),
-
-          const Divider(height: 1, color: Color(0xFFE5E8E7)),
-
-          const SizedBox(height: 6),
-
-          // PRICE + ADD
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      price,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF202838),
-                      ),
-                    ),
-
-                    const SizedBox(height: 1),
-
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.location_on_outlined,
-                          size: 8,
-                          color: Color(0xFF68736F),
-                        ),
-
-                        const SizedBox(width: 2),
-
-                        Text(
-                          '$distance • Updated $updated',
-                          style: const TextStyle(
-                            fontSize: 7,
-                            color: Color(0xFF68736F),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              Container(
-                width: 20,
-                height: 20,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF00845A),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.add, size: 14, color: Colors.white),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
     );
-
   }
 
   // ============================================================
@@ -550,20 +552,17 @@ class _HomeScreenState extends State<HomeScreen> {
     required String distance,
     required String status,
   }) {
-
     return Container(
-
-
       width: double.infinity,
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(12),
 
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 5,
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 8,
             offset: const Offset(0, 2),
           ),
         ],
@@ -576,15 +575,12 @@ class _HomeScreenState extends State<HomeScreen> {
           // PHARMACY IMAGE
           // ============================================================
           ClipRRect(
-            borderRadius: BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(8),
 
-            child: Image.asset(image, width: 62, height: 62, fit: BoxFit.cover),
+            child: Image.asset(image, width: 88, height: 88, fit: BoxFit.cover),
           ),
 
-          const SizedBox(width: 8),
-
-          // ============================================================
-          // PHARMACY INFORMATION
+          const SizedBox(width: 12),
           // ============================================================
           Expanded(
             child: Column(
@@ -600,7 +596,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         overflow: TextOverflow.ellipsis,
 
                         style: const TextStyle(
-                          fontSize: 11,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF202838),
                         ),
@@ -611,45 +607,45 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     const Icon(
                       Icons.favorite_border,
-                      size: 17,
+                      size: 22,
                       color: Color(0xFF66716D),
                     ),
                   ],
                 ),
 
-                const SizedBox(height: 4),
+                const SizedBox(height: 5),
 
                 // RATING + DISTANCE
                 Row(
                   children: [
-                    const Icon(Icons.star, size: 10, color: Color(0xFFFFB400)),
+                    const Icon(Icons.star, size: 14, color: Color(0xFFFFB400)),
 
-                    const SizedBox(width: 2),
+                    const SizedBox(width: 3),
 
                     Text(
                       rating,
                       style: const TextStyle(
-                        fontSize: 8,
+                        fontSize: 12,
                         color: Color(0xFF53605C),
                       ),
                     ),
 
-                    const SizedBox(width: 6),
+                    const SizedBox(width: 8),
 
                     const Icon(
                       Icons.location_on_outlined,
-                      size: 10,
+                      size: 14,
                       color: Color(0xFF53605C),
                     ),
 
-                    const SizedBox(width: 2),
+                    const SizedBox(width: 3),
 
                     Flexible(
                       child: Text(
                         distance,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          fontSize: 8,
+                          fontSize: 12,
                           color: Color(0xFF53605C),
                         ),
                       ),
@@ -657,7 +653,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
 
-                const SizedBox(height: 3),
+                const SizedBox(height: 4),
 
                 // STATUS
                 Text(
@@ -665,13 +661,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 8,
+                    fontSize: 12,
                     color: Color(0xFF00845A),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
 
-                const SizedBox(height: 5),
+                const SizedBox(height: 8),
 
                 // ========================================================
                 // BUTTONS
@@ -680,16 +676,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Expanded(
                       child: SizedBox(
-                        height: 24,
+                        height: 32,
 
                         child: OutlinedButton.icon(
                           onPressed: () {},
 
-                          icon: const Icon(Icons.phone_outlined, size: 10),
+                          icon: const Icon(Icons.phone_outlined, size: 13),
 
                           label: const Text(
                             'Call',
-                            style: TextStyle(fontSize: 8),
+                            style: TextStyle(fontSize: 11),
                           ),
 
                           style: OutlinedButton.styleFrom(
@@ -704,27 +700,27 @@ class _HomeScreenState extends State<HomeScreen> {
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
 
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
+                              borderRadius: BorderRadius.circular(7),
                             ),
                           ),
                         ),
                       ),
                     ),
 
-                    const SizedBox(width: 5),
+                    const SizedBox(width: 6),
 
                     Expanded(
                       child: SizedBox(
-                        height: 24,
+                        height: 32,
 
                         child: ElevatedButton.icon(
                           onPressed: () {},
 
-                          icon: const Icon(Icons.directions_outlined, size: 10),
+                          icon: const Icon(Icons.directions_outlined, size: 13),
 
                           label: const Text(
                             'Directions',
-                            style: TextStyle(fontSize: 8),
+                            style: TextStyle(fontSize: 11),
                           ),
 
                           style: ElevatedButton.styleFrom(
@@ -741,7 +737,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
 
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
+                              borderRadius: BorderRadius.circular(7),
                             ),
                           ),
                         ),
@@ -768,7 +764,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const Text(
           'Browse Categories',
           style: TextStyle(
-            fontSize: 15,
+            fontSize: 18,
             fontWeight: FontWeight.w600,
             color: Color(0xFF202838),
           ),
@@ -777,7 +773,7 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(height: 9),
 
         SizedBox(
-          height: 67,
+          height: 88,
 
           child: ListView(
             scrollDirection: Axis.horizontal,
@@ -799,12 +795,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _category(IconData icon, String title) {
     return Container(
-      width: 73,
-      margin: const EdgeInsets.only(right: 8),
+      width: 95,
+      margin: const EdgeInsets.only(right: 10),
 
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(10),
 
         boxShadow: [
           BoxShadow(
@@ -819,22 +815,22 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 19,
-            height: 19,
+            width: 36,
+            height: 36,
 
             decoration: const BoxDecoration(
               color: Color(0xFFD9F6EA),
               shape: BoxShape.circle,
             ),
 
-            child: Icon(icon, size: 15, color: Color(0xFF00845A)),
+            child: Icon(icon, size: 20, color: Color(0xFF00845A)),
           ),
 
-          const SizedBox(height: 5),
+          const SizedBox(height: 6),
 
           Text(
             title,
-            style: const TextStyle(fontSize: 7, color: Color(0xFF36413D)),
+            style: const TextStyle(fontSize: 11, color: Color(0xFF36413D)),
           ),
         ],
       ),

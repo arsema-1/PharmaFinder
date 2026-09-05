@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'user_homescreen.dart';
 
 class MedicineDetailsScreen extends StatelessWidget {
   const MedicineDetailsScreen({super.key});
@@ -14,9 +15,15 @@ class MedicineDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
 
-        leading: const Icon(
+       leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+
+        child: const Icon(
           Icons.arrow_back,
           color: Colors.grey,
+        ),
         ),
 
         title: const Text(
@@ -322,38 +329,6 @@ class MedicineDetailsScreen extends StatelessWidget {
       ),
 
       // ---------------- BOTTOM NAVIGATION ----------------
-
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-
-        selectedItemColor: const Color(0xFF00845A),
-        unselectedItemColor: Colors.grey,
-
-        type: BottomNavigationBarType.fixed,
-
-        items: const [
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Browse',
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            label: 'Saved',
-          ),
-
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
-      ),
     );
   }
 

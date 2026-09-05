@@ -3,14 +3,23 @@ import 'login_screen.dart';
 import '../../viewmodels/auth_vm.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+  final bool initialIsCustomer;
+
+  const RegisterScreen({super.key, this.initialIsCustomer = true});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  bool isCustomer = true;
+  late bool isCustomer;
+
+  @override
+  void initState() {
+    super.initState();
+    isCustomer = widget.initialIsCustomer;
+  }
+
   bool obscurePassword = true;
   bool isLoading = false;
 
